@@ -1,36 +1,57 @@
 package home_work_2;
 
-import java.util.Objects;
-import java.util.Scanner;
+class Answer {
+    public static StringBuilder answer(String QUERY, String PARAMS) {
+        // Напишите свое решение ниже
+        StringBuilder res = new StringBuilder(QUERY);
+        String task = PARAMS;
+        String[] parts = task.split(",");
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i].contains("null")) parts[i] = "0:0";
+            parts[i] = parts[i].replace("\"", "");
+            parts[i] = parts[i].replace("{", "");
+            parts[i] = parts[i].replace("}", "");
+            parts[i] = parts[i].replace(" ", "");
+        }
 
-public class task_1 {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String json = in.nextLine();
-        in.close();
-        if (json.length() == 0)
-            json = "{\"name\":\"Ivanov\", \"country\":\"Russia\", \"city\":\"Moscow\", \"age\":\"null\"}";
-        Object obj;
-        try {
-            obj = new JSONParser().parse(json);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return;
+        String arr [][] = new String[parts.length][2];
+
+        for (int j = 0; j < arr.length; j++) {
+            int flag = 0;
+            String [] temp = parts[j].split(":");
+            for (int k = 0; k < 2; k++) {
+                arr [j][k] = temp[k];
+                if (!arr[j][k].equals("0")) {
+                    if (k == 0) res.append(arr[j][k] + "='");
+                    else res.append(arr[j][k]);
+                }
+                else flag = 1;
+            }
+            if (j < arr.length -1) res.append("' and ");
+            if (flag == 1) res.setLength(res.length() - 5);
         }
-        JSONObject jo = (JSONObject) obj;
-        StringBuilder query = new StringBuilder();
-        int counter = 0;
-        for (var key : jo.keySet()){
-            if (Objects.equals(jo.get(key), "null")) continue;
-            query.append(counter++ == 0 ? "select * from students where " : " and ");
-            query.append(key);
-            query.append(" = ");
-            query.append(jo.get(key));
-        }
-        System.out.println(query.toString());
+        return res;
     }
+}
+
+// Не удаляйте этот класс - он нужен для вывода результатов на экран и проверки
+public class task_1{ 
+	public static void main(String[] args) { 
+      String QUERY = "";
+      String PARAMS = "";
+      
+      if (args.length == 0) {
+        // При отправке кода на Выполнение, вы можете варьировать эти параметры
+        QUERY = "select * from students where ";
+	    PARAMS = "{\"name\":\"Ivanov\", \"country\":\"Russia\", \"city\":\"Moscow\", \"age\":\"null\"} ";
+      }
+      else{
+        QUERY = args[0];
+        PARAMS = args[1];
+      }     
+      
+      Answer ans = new Answer();      
+      System.out.println(ans.answer(QUERY, PARAMS));
+	}
 }

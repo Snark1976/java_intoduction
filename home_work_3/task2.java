@@ -36,8 +36,7 @@ public class task2{
                         .map(Integer::parseInt)
                         .toArray(Integer[]::new);
       }     
-      
-      Answer ans = new Answer();      
-      ans.removeEvenNumbers(arr);
+        
+      Answer.removeEvenNumbers(arr);
     }
 }

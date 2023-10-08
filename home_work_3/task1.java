@@ -58,8 +58,7 @@ public class task1 {
             a = Arrays.stream(args[0].split(", ")).mapToInt(Integer::parseInt).toArray();
         }
 
-        MergeSort answer = new MergeSort();
-        String itresume_res = Arrays.toString(answer.mergeSort(a));
+        String itresume_res = Arrays.toString(MergeSort.mergeSort(a));
         System.out.println(itresume_res);
     }
 }

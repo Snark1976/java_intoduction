@@ -51,7 +51,6 @@ public class task_1{
         PARAMS = args[1];
       }     
       
-      Answer ans = new Answer();      
-      System.out.println(ans.answer(QUERY, PARAMS));
+      System.out.println(Answer.answer(QUERY, PARAMS));
 	}
 }

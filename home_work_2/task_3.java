@@ -61,7 +61,6 @@ public class task_3{
         ELEMENT3 = args[3];
       }     
       
-      Answer ans = new Answer();      
-      ans.answer(JSON, ELEMENT1, ELEMENT2, ELEMENT3);
+      Answer.answer(JSON, ELEMENT1, ELEMENT2, ELEMENT3);
 	}
 }
